@@ -1,6 +1,8 @@
 const allUsers = require('./allUsers');
 const usersStatistics = require('./usersStatistics');
-const knex = require('knex')({
+const knex = require('knex');
+
+const connectedKnex = knex({
     client: "sqlite3",
     connection: {
         filename: "users.sqlite3",
@@ -11,8 +13,9 @@ const knex = require('knex')({
 console.log(allUsers);
 async function createSchema() {
 
-    if (!await knex.schema.hasTable('users')) {
-        knex.schema.createTable('users', (table) => {
+    if (!await connectedKnex.schema.hasTable('users')) {
+        connectedKnex.schema.createTable('users', (table) => {
+            table.increments('_id');
             table.string('id');
             table.string('first_name');
             table.string('last_name');
@@ -26,12 +29,10 @@ async function createSchema() {
                 table.string('page_views');
                 table.string('clicks');
             })
-            .then(() => knex('users').insert(allUsers))
-            .then(() => knex('users_statistics').insert(usersStatistics));
+            .then(() => connectedKnex('users').insert(allUsers))
+            .then(() => connectedKnex('users_statistics').insert(usersStatistics));
     }
 }
+createSchema();
 
-module.exports = {
-    knex,
-    createSchema,
-}
+module.exports = connectedKnex;

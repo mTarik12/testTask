@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const userController = require('./db/users.controler');
+const userController = require('./db/users.controller');
 
 const router = Router();
 
@@ -11,12 +11,16 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     const allUsers = await userController.getAllUsers();
     res.status(200).json(allUsers);
+    console.log(error.name, error.message);
+    res.json({ 'message': 'could not get users' });
 });
 
 router.get('/:id', async (req, res) => {
     const { params: { id } } = req;
-    const oneUser = await userController.getOneUser(id);
+    const oneUser = await userController.getOneUser(id.toString());
     res.status(200).json(oneUser);
+    console.log(error.name, error.message);
+    res.json({ 'message': 'some problem' });
 });
 
 router.delete('/:id', async (req, res) => {

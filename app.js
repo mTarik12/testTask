@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const userRouter = require('./user.routers');
-const knex = require('./db/knex');
+const statisticRouter = require('./statistics.router');
+// const co = require('./db/knex');
 
 dotenv.config();
 let app;
@@ -9,10 +10,10 @@ const PORT = process.env.PORT || 7000;
 
 start();
 
-async function start() {
+function start() {
     initExpress();
     initMiddlewares();
-    await connectDB();
+    // await connectDB();
     initRoutes();
     listen();
 }
@@ -25,12 +26,13 @@ function initMiddlewares() {
     app.use(express.json());
 }
 
-async function connectDB() {
-    await knex.createSchema();
-}
+// async function connectDB() {
+//     await knex.createSchema();
+// }
 
 function initRoutes() {
     app.use('/users', userRouter);
+    app.use('/users_statistics', statisticRouter);
 }
 
 function listen() {
