@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const userRouter = require('./user.routers');
+const knex = require('./db/knex');
 
 dotenv.config();
 let app;
@@ -11,6 +12,7 @@ start();
 async function start() {
     initExpress();
     initMiddlewares();
+    await connectDB();
     initRoutes();
     listen();
 }
@@ -21,6 +23,10 @@ function initExpress() {
 
 function initMiddlewares() {
     app.use(express.json());
+}
+
+async function connectDB() {
+    await knex.createSchema();
 }
 
 function initRoutes() {

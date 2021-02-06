@@ -13,6 +13,12 @@ router.get('/', async (req, res) => {
     res.status(200).json(allUsers);
 });
 
+router.get('/:id', async (req, res) => {
+    const { params: { id } } = req;
+    const oneUser = await userController.getOneUser(id);
+    res.status(200).json(oneUser);
+});
+
 router.delete('/:id', async (req, res) => {
     const { params: { id } } = req;
     const deletedUser = await userController.deleteUser(id);

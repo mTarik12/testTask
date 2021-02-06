@@ -1,0 +1,2 @@
+module.exports =
+    [{ "user_id": 33, "date": "2019-10-02", "page_views": 260, "clicks": 565 }, { "user_id": 38, "date": "2019-10-02", "page_views": 766, "clicks": 258 }, { "user_id": 75, "date": "2019-10-02", "page_views": 528, "clicks": 776 }, { "user_id": 94, "date": "2019-10-02", "page_views": 323, "clicks": 373 }, { "user_id": 101, "date": "2019-10-02", "page_views": 721, "clicks": 723 }];
