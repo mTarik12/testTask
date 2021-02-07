@@ -6,12 +6,12 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
 
-        if (!req.query.date) {
+        if (!req.query.dateStart) {
             const result = await statisticController.getAllUsersInfo();
             res.status(200).json(result);
         } else {
-            const date = req.query.date;
-            const result = await statisticController.getFilteredStatictic(date);
+            const fromDateToDate = [req.query.dateStart, req.query.dateFinal]
+            const result = await statisticController.getFilteredStatictic(fromDateToDate);
             res.status(200).json(result);
         }
     }
