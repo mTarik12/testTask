@@ -24,9 +24,11 @@ function validateDatafromQuery(req, res, next) {
         const result = schema.validate(req.query);
 
         if (result.error) {
-            return res.status(400).send(result.error);
+            res.status(400).send(result.error);
         }
+
         next()
+
     } else {
         next()
     }

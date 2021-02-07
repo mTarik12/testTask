@@ -1,4 +1,5 @@
 const { connectedKnex } = require('./knex');
+const Joi = require('joi');
 
 function createUser(user) {
     return connectedKnex('users').insert(user);
@@ -30,6 +31,42 @@ function getUsersAndInfo(id) {
         .first();
 }
 
+function validateNewUser(req, res, next) {
+    const schema = Joi.object({
+        id: Joi.string().required(),
+        first_name: Joi.string().required(),
+        last_name: Joi.string().required(),
+        email: Joi.string().required(),
+        gender: Joi.string().required(),
+        ip_address: Joi.string().required(),
+    });
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error);
+    }
+
+    next();
+}
+
+function validateUpdatedUser(req, res, next) {
+    const schema = Joi.object({
+        id: Joi.string(),
+        first_name: Joi.string(),
+        last_name: Joi.string(),
+        email: Joi.string(),
+        gender: Joi.string(),
+        ip_address: Joi.string(),
+    });
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error);
+    }
+
+    next();
+}
+
 module.exports = {
     createUser,
     getAllUsers,
@@ -37,4 +74,6 @@ module.exports = {
     updateUser,
     getOneUser,
     getUsersAndInfo,
+    validateNewUser,
+    validateUpdatedUser,
 }

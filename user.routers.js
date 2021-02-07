@@ -3,7 +3,7 @@ const userController = require('./db/users.controller');
 
 const router = Router();
 
-router.post('/', async (req, res) => {
+router.post('/', userController.validateNewUser, async (req, res) => {
     try {
         const result = await userController.createUser(req.body);
         res.status(201).json(result);
@@ -50,7 +50,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', userController.validateUpdatedUser, async (req, res) => {
     try {
         const { params: { id } } = req;
         const result = await userController.updateUser(id, req.body);
