@@ -5,8 +5,15 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-        const result = await statisticController.getAllUsersInfo();
-        res.status(200).json(result);
+
+        if (!req.query.date) {
+            const result = await statisticController.getAllUsersInfo();
+            res.status(200).json(result);
+        } else {
+            const date = req.query.date;
+            const result = await statisticController.getFilteredStatictic(date);
+            res.status(200).json(result);
+        }
     }
     catch (error) {
         console.log(error.name, error.message);
