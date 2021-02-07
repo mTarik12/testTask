@@ -21,10 +21,20 @@ function updateUser(id, user) {
     return knex('users').where('id', id).update(user);
 }
 
+function getUsersAndInfo(id) {
+    return knex
+        .select('u.id', 'u.first_name', 'u.last_name', 'u.email', 'u.gender', 'u.ip_address', 'us.page_views', 'us.clicks')
+        .from('users as u')
+        .leftJoin('users_statistics as us', 'us.user_id', 'u.id')
+        .where('u.id', id)
+        .first();
+}
+
 module.exports = {
     createUser,
     getAllUsers,
     deleteUser,
     updateUser,
     getOneUser,
+    getUsersAndInfo,
 }

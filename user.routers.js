@@ -35,4 +35,10 @@ router.put('/:id', async (req, res) => {
     res.status(201).json(result);
 });
 
+router.get('/:id/users_statistics/:id', async (req, res) => {
+    const { params: { id } } = req;
+    const userInfo = await userController.getUsersAndInfo(id);
+    res.status(200).json(userInfo);
+});
+
 module.exports = router;
