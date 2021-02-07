@@ -33,6 +33,8 @@ async function createSchema() {
             .then(() => connectedKnex('users_statistics').insert(usersStatistics));
     }
 }
-createSchema();
 
-module.exports = connectedKnex;
+module.exports = {
+    connectedKnex,
+    createSchema,
+};

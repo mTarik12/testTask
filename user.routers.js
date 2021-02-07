@@ -57,7 +57,8 @@ router.put('/:id', async (req, res) => {
         res.status(201).json(result);
     }
     catch (error) {
-
+        console.log(error.name, error.message);
+        res.json({ 'message': 'could not update user' });
     }
 });
 
