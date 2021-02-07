@@ -4,14 +4,26 @@ const statisticController = require('./db/statistic.controller');
 const router = Router();
 
 router.get('/', async (req, res) => {
-    const result = await statisticController.getAllUsersInfo();
-    res.status(200).json(result);
+    try {
+        const result = await statisticController.getAllUsersInfo();
+        res.status(200).json(result);
+    }
+    catch (error) {
+        console.log(error.name, error.message);
+        res.json({ 'message': 'could not get users and users\'s info' });
+    }
 });
 
 router.get('/:id', async (req, res) => {
-    const { params: { id } } = req;
-    const result = await statisticController.getUserInfo(id);
-    res.status(200).json(result);
+    try {
+        const { params: { id } } = req;
+        const result = await statisticController.getUserInfo(id);
+        res.status(200).json(result);
+    }
+    catch (error) {
+        console.log(error.name, error.message);
+        res.json({ 'message': 'could not get users\'s info' });
+    }
 });
 
 module.exports = router;
