@@ -15,7 +15,6 @@ async function createSchema() {
 
     if (!await connectedKnex.schema.hasTable('users')) {
         connectedKnex.schema.createTable('users', (table) => {
-            table.increments('_id');
             table.string('id');
             table.string('first_name');
             table.string('last_name');
