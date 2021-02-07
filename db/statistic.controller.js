@@ -14,20 +14,27 @@ function getFilteredStatictic(dateSearch) {
     return connectedKnex('users_statistics').whereBetween('users_statistics.date', dateSearch).select('page_views', 'clicks');
 }
 
-function validatrDatafromQuery(req, res, next) {
-    const schema = Joi.object({
-        date: Joi.string().required(),
-    });
-    const result = schema.validate(req.query);
+function validateDatafromQuery(req, res, next) {
 
-    if (result.error) {
-        return res.status(400).send(result.error);
+    if (!!req.query.dateStart) {
+        const schema = Joi.object({
+            dateStart: Joi.string().required(),
+            dateFinal: Joi.string().required(),
+        });
+        const result = schema.validate(req.query);
+
+        if (result.error) {
+            return res.status(400).send(result.error);
+        }
+        next()
+    } else {
+        next()
     }
-    next()
 }
 
 module.exports = {
     getUserInfo,
     getAllUsersInfo,
     getFilteredStatictic,
+    validateDatafromQuery,
 }

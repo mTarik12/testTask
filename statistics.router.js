@@ -3,7 +3,7 @@ const statisticController = require('./db/statistic.controller');
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', statisticController.validateDatafromQuery, async (req, res) => {
     try {
 
         if (!req.query.dateStart) {
