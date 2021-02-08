@@ -66,7 +66,7 @@ router.get('/:id/users_statistics/:id', async (req, res) => {
     try {
         const { params: { id } } = req;
         const userInfo = await userController.getUsersAndInfo(id);
-        res.status(200).json(userInfo);
+        res.status(200).json(userInfo); 
     }
     catch (error) {
         console.log(error.name, error.message);

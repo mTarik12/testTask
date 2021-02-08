@@ -10,7 +10,6 @@ function getAllUsersInfo() {
 }
 
 function getFilteredStatictic(dateSearch) {
-    console.log(dateSearch);
     return connectedKnex('users_statistics').whereBetween('users_statistics.date', dateSearch).select('page_views', 'clicks');
 }
 

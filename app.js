@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const userRouter = require('./user.routers');
 const statisticRouter = require('./statistics.router');
 const { createSchema } = require('./db/knex');
+const cors = require('cors');
 
 dotenv.config();
 let app;
@@ -24,6 +25,7 @@ function initExpress() {
 
 function initMiddlewares() {
     app.use(express.json());
+    app.use(cors());
 }
 
 async function connectDB() {
